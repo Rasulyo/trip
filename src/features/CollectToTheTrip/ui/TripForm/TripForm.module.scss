@@ -1,0 +1,53 @@
+.formContainer {
+    padding: 32px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inputField {
+    margin-bottom: 16px;
+    color: black;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 23px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 16px;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 16px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .buttonPrimary {
+    background-color: #0663EF;
+    color: #fff;
+  }
+  
+  .buttonSecondary {
+    background-color: rgba(6, 99, 239, 0.2);
+    color: #0663EF;
+  }
+  
+
+  .wrapper {
+    display: flex;
+    width: 100%;
+    gap: 36px;
+
+    .inputField {
+      width: 100%;
+    }
+  }
