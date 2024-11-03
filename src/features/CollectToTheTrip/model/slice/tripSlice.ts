@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ExpiryDate, TripFormSchema } from '../types/TripFormSchema';
+import { TripFormSchema } from '../types/TripFormSchema';
 import { FormData } from '../validations/validation';
 
 const initialState: TripFormSchema = {
     cardNumber: '',          
-    expiryDate: undefined,          
+    expiryDate: '',          
     cvc: '',                  
-    amount: 10,               
+    amount: 0,               
     name: '',                 
-    message: 'Экскурсия',              
     isLoading: false,
     errors: undefined,
 };
@@ -20,7 +19,7 @@ export const paymentSlice = createSlice({
         setCardNumber: (state, action: PayloadAction<string>) => {
             state.cardNumber = action.payload;
         },
-        setExpiryDate: (state, action: PayloadAction<ExpiryDate>) => {
+        setExpiryDate: (state, action: PayloadAction<string>) => {
             state.expiryDate = action.payload;
         },
         setCvc: (state, action: PayloadAction<string>) => {
@@ -31,9 +30,6 @@ export const paymentSlice = createSlice({
         },
         setName: (state, action: PayloadAction<string>) => {
             state.name = action.payload.slice(0, 50); 
-        },
-        setMessage: (state, action: PayloadAction<string>) => {
-            state.message = action.payload.slice(0, 50); 
         },
         setErrors: (state, action: PayloadAction<FormData>) => {
             state.errors = action.payload;

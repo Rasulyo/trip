@@ -11,27 +11,43 @@ export const sendPaymentData = async (data: FormData, dispatch: AppDispatch) => 
     const errors = validatePaymentData(data);
 
     if (Object.entries(errors).length) {
-        dispatch(paymentActions.setErrors(errors));
+        dispatch(paymentActions.setErrors(errors as FormData));
         throw new Error('Validation failed');
+    } 
+    try {
+        const amount = data.amount;
+        const hash_sum = SHA256(`${apiKey}${transaction}${Number(amount) * 100}${secret}`).toString(encHex);
+
+        const payload = {
+            api_key: apiKey,
+            transaction,
+            description: "Оплата экскурсии",
+            amount,
+            hash_sum,
+            custom_data: data
+        };
+        
+
+        const response = await fetch("https://example/payment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to send payment data to Fake API!!!: ${response.statusText}`);
+        }
+        dispatch(paymentActions.setErrors({} as FormData));
+
+        const result = await response.json();
+        alert('Payment successful');
+        window.location.reload();
+
+        return result;
+    } catch (error) {
+        console.log(error);
+        alert(`${error}`);
     }
-
-    const amount = data.amount;
-    const hash_sum = SHA256(`${apiKey}${transaction}${Number(amount) * 100}${secret}`).toString(encHex);
-
-    const payload = {
-        api_key: apiKey,
-        transaction,
-        description: "Оплата экскурсии",
-        amount,
-        hash_sum,
-        custom_data: {
-            initiator: "Иван.К",
-            trip: "Экскурсия",
-            ...data
-        },
-    };
-
-    console.log("Simulating API call with payload:", payload);
-
-    return payload;
 };

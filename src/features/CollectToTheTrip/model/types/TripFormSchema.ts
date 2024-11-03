@@ -2,11 +2,11 @@ import { FormData } from "../validations/validation";
 
 export interface TripFormSchema {
     cardNumber: string;
-    expiryDate?: ExpiryDate;
+    expiryDate: string;
     cvc: string;
     amount: number;
     name: string;
-    message: string;
+    message?: string;
     isLoading?: boolean;
     errors?: FormData;
 }
