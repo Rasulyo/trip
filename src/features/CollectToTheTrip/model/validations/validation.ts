@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface FormData {
     cardNumber: string;
     expiryDate: string;
@@ -7,10 +8,10 @@ export interface FormData {
     message?: string;
   }
   
-  export function validatePaymentData(data: FormData): Record<string, string> {
-    const errors: Record<string, string> = {};
+  export function validatePaymentData(data: FormData): any {
+    const errors: any = {};
 
-    if (!data.cardNumber) {
+    if (!data?.cardNumber) {
         errors.cardNumber = 'Пожалуйста, введите номер карты';
     } else if (!isValidCardNumber(data.cardNumber)) {
         errors.cardNumber = 'Неверный номер карты';
@@ -34,9 +35,8 @@ export interface FormData {
         errors.name = 'Пожалуйста, введите ваше имя';
     }
 
-    return errors;
+    return Object.keys(errors).length > 0 ? errors : null;
 }
-
 
 function isValidCardNumber(cardNumber: string) {
     let s = 0;

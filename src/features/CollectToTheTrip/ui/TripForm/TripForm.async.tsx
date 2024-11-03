@@ -1,5 +1,3 @@
-import { FC, lazy } from 'react';
+import { lazy } from 'react';
 
-export const TripFormAsync = lazy<FC>(() => new Promise((resolve) => {
-    setTimeout(() => resolve(import('./TripForm')), 1500);
-}));
+export const TripFormAsync = lazy(() => import('./TripForm'));
