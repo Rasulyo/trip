@@ -5,7 +5,7 @@ export interface FormData {
     amount: number | string;
     name: string;
     message?: string;
-    initiator?: string,
+    initiator?: string;
     type?: string;
   }
   
@@ -14,9 +14,7 @@ export interface FormData {
 
     if (!data?.cardNumber) {
         errors.cardNumber = 'Пожалуйста, введите номер карты';
-    } else if (!isValidCardNumber(data.cardNumber)) {
-        errors.cardNumber = 'Неверный номер карты';
-    }
+    } 
     if (!data.expiryDate) {
         errors.expiryDate = 'Пожалуйста, введите дату истечения';
     }
@@ -38,7 +36,7 @@ export interface FormData {
     return Object.keys(errors).length > 0 ? errors : {};
 }
 
-function isValidCardNumber(cardNumber: string) {
+export function isValidCardNumber(cardNumber: string) {
     let s = 0;
     let doubleDigit = false;
     for (let i = cardNumber.length - 1; i >= 0; i--) {

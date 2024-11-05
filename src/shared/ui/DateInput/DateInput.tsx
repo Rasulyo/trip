@@ -25,20 +25,27 @@ const DateInput: React.FC<DateInputProps> = memo(
     }, [autoFocus]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      let input = e.target.value;
-      
-      input = input.replace(/[^0-9]/g, '');
-    
+      let input = e.target.value.replace(/[^0-9]/g, '');
+
+      if (input.length > 6) {
+        input = input.slice(0, 6);
+      }
+
       if (input.length >= 2) {
         input = `${input.slice(0, 2)} / ${input.slice(2)}`;
       }
-    
-      if (input.length <= 7) {
-        onChange(input);
-    
-        if (/^(0[1-9]|1[0-2]) \/ \d{0,2}$/.test(input)) {
-          onChange?.(input);
+
+      if (input.length >= 2) {
+        const month = input.slice(0, 2);
+        if (parseInt(month, 10) > 12) {
+          input = '12 / ';
         }
+      }
+
+      onChange(input);
+
+      if (/^(0[1-9]|1[0-2]) \/ \d{0,2}$/.test(input)) {
+        onChange(input);
       }
     };
 
